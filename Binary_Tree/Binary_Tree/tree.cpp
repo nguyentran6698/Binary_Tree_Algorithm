@@ -19,6 +19,10 @@ public:
 	void inOrder(Node* p);
 	void inOrder() { inOrder(root); }
 	void levelOrder(Node* p);
+	int count_node(Node* p);
+	int count_node() { return count_node(root);}
+	int node_degree_2() { return node_degree_2(root);}
+	int node_degree_2(Node*);
 	int Height(Node* p);
 };
 void Tree::creat_tree()
@@ -121,12 +125,40 @@ int Tree::Height(Node* root)
 		return y + 1;
 	
 }
+int Tree::count_node(Node *t)
+{
+	int x, y;
+	if(t !=nullptr)
+	{
+		x = count_node(t->lchild);
+		y = count_node(t->rchild);
+		return x + y + 1;
+	}
+	return 0;
+}
+int Tree::node_degree_2(Node* root)
+{
+	int x, y;
+	if (root != nullptr)
+	{
+		x = node_degree_2(root->lchild);
+		y = node_degree_2(root->rchild);
+		if (root->lchild != nullptr && root->rchild != nullptr)
+			return x + y + 1;
+		else
+			return x + y;
+	}
+	return 0;
+}
 int main()
 {
 	Tree t;
 	t.creat_tree();
+	cout << "PreOrder: " << endl;
 	t.preOrder();
-
+	cout << endl;
+	cout << "Number of Node in this Tree is: " << t.count_node() << endl;
+	cout << "Number of Node degree 2 in this Tree is: " << t.node_degree_2() << endl;
 
 
 
