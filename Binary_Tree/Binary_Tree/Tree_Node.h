@@ -11,6 +11,7 @@ public:
 	Node()
 	{
 		next = nullptr;
+		data = 0;
 	}
 	void set_next(Node* t)
 	{
@@ -24,9 +25,9 @@ public:
 	{
 		return data;
 	}
-	void set_data(int data)
+	void set_data(int item)
 	{
-		this->data = data;
+		data = item;
 	}
 };
 class Queue
@@ -61,7 +62,7 @@ void Queue::enqueue(Node * t)
 Node* Queue::dequeue()
 {
 	Node* x = nullptr;
-	if ((front + 1) % size == rear)
+	if (front == rear)
 		cout << "The queue is empty" << endl;
 	else
 	{

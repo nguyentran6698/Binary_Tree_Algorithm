@@ -6,6 +6,7 @@ class Tree
 private:
 	Node* root;
 public:
+	
 	Tree()
 	{
 		root = nullptr;
@@ -23,17 +24,18 @@ public:
 void Tree::creat_tree()
 {
 	Queue t;
-	Node* p;
+	Node* p, w;
 	int x;
+	root = new Node;
 	cout << "Enter root value:";
 	cin >> x;
 	root->set_data(x);
 	root->lchild, root->rchild = nullptr;
 	t.enqueue(root);
-	while (!t.isEmpty)
+	while (!t.isEmpty())
 	{
 		p = t.dequeue();
-		cout << "Enter value for the left child " << p->get_data << ": ";
+		cout << "Enter value for the left child " << p->get_data() << ": ";
 		cin >> x;
 		if (x != -1)
 		{
@@ -44,7 +46,7 @@ void Tree::creat_tree()
 			t.enqueue(w);
 			
 		}
-		cout << "Enter value for the right child " << p->get_data << ": ";
+		cout << "Enter value for the right child " << p->get_data() << ": ";
 		cin >> x;
 		if (x != -1)
 		{
@@ -62,7 +64,7 @@ void Tree::preOrder(Node *t)
 {
 	if (t != nullptr)
 	{
-		cout << t->get_data << " ";
+		cout << t->get_data ()<< " ";
 		preOrder(t->lchild);
 		preOrder(t->rchild);
 	}
@@ -72,7 +74,7 @@ void Tree::inOrder(Node* t)
 	if (t != nullptr)
 	{
 		inOrder(t->lchild);
-		cout << t->get_data << " ";
+		cout << t->get_data() << " ";
 		inOrder(t->rchild);
 	}
 }
@@ -82,11 +84,28 @@ void Tree::postOrder(Node* t)
 	{
 		postOrder(t->lchild);
 		postOrder(t->rchild);
-		cout << t->get_data << " ";
+		cout << t->get_data() << " ";
 	}
 }
-void Tree::levelOrder(Node* t)
+void Tree::levelOrder(Node* root)
 {
+	Queue q;
+	cout << root->get_data() << endl;
+	q.enqueue(root);
+	while (!q.isEmpty())
+	{
+		root = q.dequeue();
+		if (root->lchild)
+		{
+			cout << root->lchild->get_data() <<" ";
+			q.enqueue(root->lchild);
+		}
+		if (root->rchild)
+		{
+			cout << root->rchild->get_data() << " ";
+			q.enqueue(root->rchild);
+		}
+	}
 
 }
 int Tree::Height(Node* root)
@@ -104,9 +123,13 @@ int Tree::Height(Node* root)
 }
 int main()
 {
+	Tree t;
+	t.creat_tree();
+	t.preOrder();
 
 
 
 
+	return 0;
 }
 
